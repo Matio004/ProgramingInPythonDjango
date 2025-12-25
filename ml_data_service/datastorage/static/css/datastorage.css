@@ -1,0 +1,12 @@
+* {
+    font-family: Calibri, sans-serif;
+}
+
+nav > ul {
+    display: inline-block;
+    list-style: none;
+}
+
+.delete-form {
+    display: inline;
+}

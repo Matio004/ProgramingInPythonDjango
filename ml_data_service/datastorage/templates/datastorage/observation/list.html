@@ -1,0 +1,45 @@
+{% extends "datastorage/base.html" %}
+{% block title %}Observations{% endblock %}
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Feature 1
+                </th>
+                <th>
+                    Feature 2
+                </th>
+                <th>
+                    Feature 3
+                </th>
+                <th>
+                    Feature 4
+                </th>
+                <th>
+                    Delete
+                </th>
+            </tr>
+        </thead>
+        {% for observation in observations %}
+            <tr>
+            <!--<td>{{ forloop.counter0 }}</td> starts with 0-->
+                <td>{{ forloop.counter }}</td>
+                <td>{{ observation.feature0 }}</td>
+                <td>{{ observation.feature1 }}</td>
+                <td>{{ observation.feature2 }}</td>
+                <td>{{ observation.feature3 }}</td>
+                <td>{{ observation.category }}</td>
+                <td>
+                    <form method="post" action="{% url 'datastorage:delete' observation.id %}" class="delete-form">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

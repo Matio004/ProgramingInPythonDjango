@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static "css/datastorage.css" %}" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="{% url 'datastorage:listview' %}">Data points</a>
+        </li>
+        <li>
+            <a href="{% url 'datastorage:create' %}">Add data point</a>
+        </li>
+    </ul>
+</nav>
+{% block content %}
+{% endblock %}
+</body>
+</html>
