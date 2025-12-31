@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, DeleteView, CreateView
-from rest_framework.generics import ListCreateAPIView, DestroyAPIView
-import rest_framework.status as statuscodes
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView, CreateView, FormView
 
 from .models import Observation
-from .forms import ObservationForm
-from .serializers import ObservationSerializer
+from .forms import ObservationForm, PredictionForm
+from .predictions import predict
 
 
 # Create your views here.
@@ -22,24 +20,45 @@ class ObservationCreateView(CreateView):
     success_url = reverse_lazy('datastorage:listview')
     form_class = ObservationForm
 
+    def form_invalid(self, form):
+        return render(self.request, '400.html', status=400)
 
-class ObservationDeleteView(DeleteView):  # todo error pages
+
+class ObservationDeleteView(DeleteView):
     model = Observation
     success_url = reverse_lazy('datastorage:listview')
 
     http_method_names = ['post']
 
 
-class ObservationListCreateAPIView(ListCreateAPIView):
-    queryset = Observation.objects.all()
-    serializer_class = ObservationSerializer
+def predict_view(request):
+    category = None
 
+    if request.method == 'POST':
+        form = PredictionForm(request.POST)
 
-class ObservationDestoryAPIView(DestroyAPIView):
-    queryset = Observation.objects.all()
-    serializer_class = ObservationSerializer
+        if form.is_valid():
+            cd = form.cleaned_data
+            to_predict = [cd['feature0'], cd['feature1']]
 
-    def delete(self, request, *args, **kwargs):  # TODO napisać samemu
-        x = super().delete(request, *args, **kwargs)
-        x.status_code = statuscodes.HTTP_200_OK
-        return x
+            try:
+                category = predict(to_predict)
+            except ValueError:
+                return render(request, '500.html', status=500)
+        else:  # bez tego zwróci formularz z błędami do poprawy
+            return render(request, '400.html', status=400)
+
+    else:
+        form = PredictionForm()
+
+    return render(
+        request, 'datastorage/observation/predict.html',
+        {
+            'category': category,
+            'form': form
+        }
+    )
+
+class PredictionView(FormView):
+    form_class = PredictionForm
+

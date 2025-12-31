@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from .models import Observation
+from ..models import Observation
 
 class ObservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Observation
-        fields = ['id', 'feature0', 'feature1', 'feature2', 'feature3', 'category']
+        fields = ['id', 'feature0', 'feature1', 'category']

@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('datastorage.urls', namespace='datastorage')),
+    path('api/', include('datastorage.api.urls', namespace='api')),
 ]

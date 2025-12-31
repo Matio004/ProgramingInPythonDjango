@@ -14,10 +14,7 @@
                     Feature 2
                 </th>
                 <th>
-                    Feature 3
-                </th>
-                <th>
-                    Feature 4
+                    Category
                 </th>
                 <th>
                     Delete
@@ -26,17 +23,14 @@
         </thead>
         {% for observation in observations %}
             <tr>
-            <!--<td>{{ forloop.counter0 }}</td> starts with 0-->
-                <td>{{ forloop.counter }}</td>
+                <th>{{ forloop.counter }}</th>
                 <td>{{ observation.feature0 }}</td>
                 <td>{{ observation.feature1 }}</td>
-                <td>{{ observation.feature2 }}</td>
-                <td>{{ observation.feature3 }}</td>
                 <td>{{ observation.category }}</td>
-                <td>
+                <td class="delete-button-cell">
                     <form method="post" action="{% url 'datastorage:delete' observation.id %}" class="delete-form">
                         {% csrf_token %}
-                        <input type="submit" value="Delete">
+                        <input type="submit" value="Delete" class="delete-button">
                     </form>
                 </td>
             </tr>

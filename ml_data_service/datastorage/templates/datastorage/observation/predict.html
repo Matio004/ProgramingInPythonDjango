@@ -1,0 +1,19 @@
+{% extends "datastorage/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="wrapper">
+        <h2>Predict category</h2>
+        <form method="post">
+            <fieldset class="line">
+                {{ form }}
+            </fieldset>
+            {% csrf_token %}
+            <p><input type="submit" value="Predict" class="submit"></p>
+        </form>
+        {% if category is not None %}
+            <p>
+                Category: {{ category }}
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

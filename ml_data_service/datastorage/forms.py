@@ -6,4 +6,11 @@ class ObservationForm(ModelForm):
 
     class Meta:
         model = Observation
-        fields = ('feature0', 'feature1', 'feature2', 'feature3', 'category',)
+        fields = ('feature0', 'feature1', 'category',)
+
+
+class PredictionForm(ModelForm):
+    class Meta:
+        model = Observation
+        fields = ('feature0', 'feature1',)
+
