@@ -14,7 +14,7 @@ class ObservationListCreateAPIView(ListCreateAPIView):
     serializer_class = ObservationSerializer
 
 
-class ObservationDestoryAPIView(DestroyAPIView):
+class ObservationDestroyAPIView(DestroyAPIView):
     queryset = Observation.objects.all()
     serializer_class = ObservationSerializer
 
