@@ -4,6 +4,10 @@
     <div class="error-wrapper">
         <div class="error-code">500</div>
         <h2>Internal Server Error</h2>
+        {% if message is Null %}
         <p>Page unavailable</p>
+        {% else %}
+        <p>{{ message }}</p>
+        {% endif %}
     </div>
 {% endblock %}

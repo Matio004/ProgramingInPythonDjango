@@ -44,8 +44,8 @@ def predict_view(request):
             try:
                 category = predict(to_predict)
             except ValueError:
-                return render(request, '500.html', status=500)
-        else:  # bez tego zwróci formularz z błędami do poprawy
+                return render(request, '500.html', {'message': 'Not enough data to predict category.'}, status=500)
+        else:
             return render(request, '400.html', status=400)
 
     else:
@@ -55,7 +55,7 @@ def predict_view(request):
         request, 'datastorage/observation/predict.html',
         {
             'category': category,
-            'form': form
+            'form': form,
         }
     )
 

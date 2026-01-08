@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
 from .models import Observation
 
@@ -9,7 +9,7 @@ def predict(to_predict):
     features = array[:, :-1]
     categories = array[:, -1]
 
-    scaler = MinMaxScaler()
+    scaler = StandardScaler()
     scaler.fit_transform(features)
 
     classifier = KNeighborsClassifier()
