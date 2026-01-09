@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView, CreateView, FormView
+from django.views.generic import ListView, DeleteView, CreateView
 
 from .models import Observation
 from .forms import ObservationForm, PredictionForm
@@ -58,7 +58,3 @@ def predict_view(request):
             'form': form,
         }
     )
-
-class PredictionView(FormView):
-    form_class = PredictionForm
-
